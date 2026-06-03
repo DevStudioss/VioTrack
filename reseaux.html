@@ -1,0 +1,262 @@
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Social Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    background:#000;
+    font-family:'Montserrat',sans-serif;
+}
+
+/* VIDEO */
+
+#bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-3;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:-2;
+}
+
+
+
+
+/* USERNAME */
+
+.username{
+    position:absolute;
+    top:60px;
+    left:80px;
+    color:white;
+    font-size:4rem;
+    font-weight:900;
+    letter-spacing:4px;
+    transform:rotate(-7deg);
+    text-shadow:4px 4px 0 #000;
+}
+
+/* MENU */
+
+.menu{
+    position:absolute;
+    top:50%;
+    left:12%;
+    transform:translateY(-50%);
+}
+
+.menu-item{
+    display:block;
+    color:white;
+    text-decoration:none;
+    font-size:4rem;
+    font-weight:900;
+    margin:15px 0;
+    transform:skew(-15deg);
+    transition:.25s;
+    text-shadow:5px 5px 0 black;
+}
+
+
+.menu-item::before{
+    content:"▶";
+    margin-right:15px;
+    opacity:0;
+    transition:.25s;
+}
+
+.menu-item.active::before{
+    opacity:1;
+}
+
+/* HELP */
+
+.help{
+    position:absolute;
+    bottom:40px;
+    right:40px;
+    color:white;
+    font-size:.9rem;
+    opacity:.8;
+}
+
+/* INTRO */
+
+@keyframes intro{
+    from{
+        opacity:0;
+        transform:translateX(-100px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.menu-item{
+    animation:intro .7s forwards;
+}
+
+.menu-item:nth-child(1){animation-delay:.1s;}
+.menu-item:nth-child(2){animation-delay:.2s;}
+.menu-item:nth-child(3){animation-delay:.3s;}
+.menu-item:nth-child(4){animation-delay:.4s;}
+
+</style>
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="black-haired-girl.3840x2160 (1).mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+<div class="red-shape"></div>
+
+<div class="username">
+    KEHAZY
+</div>
+
+<div class="menu">
+
+    <a class="menu-item active"
+       href="https://www.roblox.com/fr/users/2729182277/profile"
+       target="_blank">
+       ROBLOX
+    </a>
+
+    <a class="menu-item"
+       href="https://steamcommunity.com/id/76561199633079488"
+       target="_blank">
+       STEAM
+    </a>
+
+    <a class="menu-item"
+       href="https://discord.com/users/1345701606976389232"
+       target="_blank">
+       DISCORD
+    </a>
+
+    <a class="menu-item"
+       href="https://instagram.com/kehazy.90"
+       target="_blank">
+       INSTAGRAM
+    </a>
+
+</div>
+
+<div class="help">
+    ↑ ↓ Naviguer • Entrée pour ouvrir
+</div>
+
+<script>
+
+const items = document.querySelectorAll('.menu-item');
+let current = 0;
+
+function updateMenu(){
+
+    items.forEach(item=>{
+        item.classList.remove('active');
+    });
+
+    items[current].classList.add('active');
+}
+
+document.addEventListener('keydown',(e)=>{
+
+    if(e.key === 'ArrowDown'){
+        current++;
+        if(current >= items.length) current = 0;
+        updateMenu();
+    }
+
+    if(e.key === 'ArrowUp'){
+        current--;
+        if(current < 0) current = items.length-1;
+        updateMenu();
+    }
+
+    if(e.key === 'Enter'){
+        window.open(items[current].href,'_blank');
+    }
+
+});
+</script>
+
+</body>
+</html>
+<link rel="stylesheet" href="style.css">
+<audio id="bg-music" src="musique.mp3" loop autoplay muted></audio>
+
+<script>
+  const audio = document.getElementById("bg-music");
+
+  audio.volume = 0.0;
+
+  function fadeIn(target = 0.2, duration = 4000) {
+    const stepTime = 50;
+    const step = target / (duration / stepTime);
+
+    const fade = setInterval(() => {
+      if (audio.volume < target) {
+        audio.volume = Math.min(audio.volume + step, target);
+      } else {
+        clearInterval(fade);
+      }
+    }, stepTime);
+  }
+
+  // Essaye de lancer automatiquement
+  window.addEventListener("load", async () => {
+    try {
+      await audio.play();   // peut marcher sur certains navigateurs
+      audio.muted = false;
+      fadeIn(0.2, 4000);
+    } catch (e) {
+      // fallback si bloqué → on attend interaction
+      const start = () => {
+        audio.play();
+        audio.muted = false;
+        fadeIn(0.2, 4000);
+        document.removeEventListener("click", start);
+      };
+      document.addEventListener("click", start);
+    }
+  });
+</script>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#violet {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: violet;
+  border-radius: 50%;
+  pointer-events: none;
+}
+</style>

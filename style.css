@@ -1,0 +1,16 @@
+.menu-item.active{
+    color:#b266ff;
+    transform:translateX(40px) scale(1.15) skew(-15deg);
+    text-shadow:
+        0 0 10px #b266ff,
+        0 0 20px #b266ff,
+        5px 5px 0 #000;
+}
+.menu-item:hover{
+    color:#b266ff;
+    transform:translateX(40px) scale(1.15) skew(-15deg);
+    text-shadow:
+        0 0 10px #b266ff,
+        0 0 20px #b266ff,
+        5px 5px 0 #000;
+}
